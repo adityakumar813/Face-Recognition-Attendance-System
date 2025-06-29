@@ -377,7 +377,7 @@ class Student:
         else:
             # messagebox.showinfo("Wait!","Data is saving",parent=self.root)
             try:
-                conn = mysql.connector.connect(host='localhost', user='root', password= 'P@ssword4SQL',database='face-recognition-attendance-system')
+                conn = mysql.connector.connect(host='localhost', user='root', password= 'Shivani@1012',database='face-recognition-attendance-system')
                 my_cursor=conn.cursor()
                 my_cursor.execute("insert into student values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(                                         
                 
@@ -406,7 +406,7 @@ class Student:
     # ========================= Fetch Data ========================== #
 
     def fetch_data(self):
-        conn = mysql.connector.connect(host='localhost', user='root', password= 'P@ssword4SQL',database='face-recognition-attendance-system')
+        conn = mysql.connector.connect(host='localhost', user='root', password= 'Shivani@1012',database='face-recognition-attendance-system')
         my_cursor=conn.cursor()
         my_cursor.execute("select * from student")
         data=my_cursor.fetchall()
@@ -469,7 +469,7 @@ class Student:
         else:
             # messagebox.showinfo("Wait!","Data is saving",parent=self.root)
             try:
-                conn = mysql.connector.connect(host='localhost', user='root', password= 'P@ssword4SQL',database='face-recognition-attendance-system')
+                conn = mysql.connector.connect(host='localhost', user='root', password= 'Shivani@1012',database='face-recognition-attendance-system')
                 my_cursor=conn.cursor()
                 my_cursor.execute("select * from student")
                 myresult = my_cursor.fetchall()
@@ -490,7 +490,7 @@ class Student:
                         self.var_email.get(),
                         self.var_phn.get(),
                         self.var_radio.get(),
-                        self.var_std_id.get()
+                        self.var_std_id.get()==id+1
                     ))                                                                        
                 conn.commit()
                 self.fetch_data()
@@ -575,7 +575,7 @@ class Student:
             try:
                 update = messagebox.askyesno("Update","Do you want to update this student details")
                 if update>0:
-                    conn = mysql.connector.connect(host='localhost', user='root', password= 'P@ssword4SQL',database='face-recognition-attendance-system')
+                    conn = mysql.connector.connect(host='localhost', user='root', password= 'Shivani@1012',database='face-recognition-attendance-system')
                     my_cursor=conn.cursor()
                     my_cursor.execute("update student set department=%s,course=%s,year=%s,semester=%s," \
                     "Name=%s,batch=%s,roll=%s,gen=%s,dob=%s,email=%s,phn=%s,photo=%s where S_ID=%s",(
@@ -602,30 +602,29 @@ class Student:
             except Exception as es:
                 messagebox.showerror("Error",f"cannot update due to:\n{str(es)}")
 
-
     def delete_data(self):
         if self.var_std_id.get() == "":
             messagebox.showerror("Error", "Student ID is required to delete data.", parent=self.root)
         else:
             try:
-                delete = messagebox.askyesno("Delete data","Do you want to delete this student details")
-                if delete>0:
-                    conn = mysql.connector.connect(host='localhost', user='root', password= 'P@ssword4SQL',database='face-recognition-attendance-system')
-                    my_cursor=conn.cursor()
-                    sql="delete from student where S_ID=%s"
-                    val=(self.var_std_id.get(),)
-                    my_cursor.execute(sql,val)
+                delete = messagebox.askyesno("Delete data", "Do you want to delete this student details?")
+                if delete > 0:
+                    conn = mysql.connector.connect(host='localhost', user='root', password='Shivani@1012', database='face-recognition-attendance-system')
+                    my_cursor = conn.cursor()
+                    sql = "DELETE FROM student WHERE S_ID = %s"
+                    val = (self.var_std_id.get(),)
+                    my_cursor.execute(sql, val)
 
                     conn.commit()
                     self.fetch_data()
                     conn.close()
-                    messagebox.showinfo("Success","Student Details Deleted Successflly.")
+                    messagebox.showinfo("Success", "Student Details Deleted Successfully.")
                 else:
                     return
             except Exception as es:
-                messagebox.showerror("Error",f"cannot delete due to:\n{str(es)}")
-
-
+    
+               messagebox.showerror("Error", f"Cannot delete due to:\n{str(es)}")
+ 
 
     def update_course_options(self, event=None):
         """
